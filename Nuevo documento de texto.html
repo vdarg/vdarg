@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Old Mac Desktop</title>
+  <style>
+    @font-face {
+      font-family: 'Chicago';
+      src: url('Chicago.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #aaa,
+        #aaa 2px,
+        #888 2px,
+        #888 4px
+      );
+      font-family: 'Chicago', monospace;
+      font-size: 14px;
+      color: black;
+      height: 100vh;
+      overflow: hidden;
+      cursor: url('arrow.cur'), auto;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: auto;
+      image-rendering: pixelated;
+    }
+
+    header {
+      background-color: #fafafa;
+      border-bottom: 1px solid black;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    header a {
+      margin-right: 16px;
+      text-decoration: none;
+      color: black;
+      cursor: default;
+    }
+
+    #apple-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      image-rendering: pixelated;
+    }
+
+    .icon {
+      width: 60px;
+      text-align: center;
+      color: black;
+      font-size: 12px;
+      position: absolute;
+    }
+
+    .icon a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .icon img {
+      display: block;
+      margin: 0 auto 4px;
+      image-rendering: pixelated;
+      width: 32px;
+      height: 32px;
+    }
+
+    #floppy {
+      top: 40px;
+      right: 20px;
+    }
+
+    #trash {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    #sobreMi {
+      top: 40px;
+      left: 20px;
+    }
+
+    #otros {
+      top: 100px;
+      left: 20px;
+    }
+
+    a:hover,
+    .icon a:hover,
+    header a:hover {
+      cursor: url('hand.cur'), pointer;
+    }
+
+    .dialog {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border: 2px solid black;
+      padding: 20px 40px;
+      box-shadow: inset -1px -1px 0 #000, inset 1px 1px 0 #000;
+      display: none;
+      max-width: 80%;
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    .dialog::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border: 1px solid white;
+      pointer-events: none;
+    }
+
+    .dialog.show {
+      display: block;
+    }
+
+    .dialog-text {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .dialog-text img {
+      width: 24px;
+      height: 24px;
+      image-rendering: pixelated;
+      margin-top: 3px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 3px;
+      right: 5px;
+      font-size: 12px;
+      cursor: url('hand.cur'), pointer;
+      font-weight: bold;
+      background: none;
+      border: none;
+      color: black;
+      font-family: 'Chicago', monospace;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .close-btn:hover {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#"><img id="apple-icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Apple_Computer_Logo_rainbow.svg/1759px-Apple_Computer_Logo_rainbow.svg.png" alt="Apple Logo"></a>
+    <a href="#">File</a>
+    <a href="#">Edit</a>
+    <a href="#">View</a>
+    <a href="#">Special</a>
+    <a href="#">Color</a>
+  </header>
+
+  <!-- Íconos del escritorio -->
+  <div class="icon" id="sobreMi">
+    <a href="#" onclick="showDialog('Ejemplo C')">
+      <img src="https://i.imgur.com/3Rw8YBv.png" alt="Sobre mi">
+      Sobre mi
+    </a>
+  </div>
+
+  <div class="icon" id="otros">
+    <a href="#" onclick="showDialog('Ejemplo D')">
+      <img src="https://i.imgur.com/LfkgMSF.png" alt="Otros">
+      Otros
+    </a>
+  </div>
+
+  <div class="icon" id="floppy">
+    <a href="#" onclick="showDialog('Ejemplo B')">
+      <img src="https://i.imgur.com/JjsPYyA.png" alt="System Tools">
+      System Tools
+    </a>
+  </div>
+
+  <div class="icon" id="trash">
+    <a href="#" onclick="showDialog('Este es un texto de prueba un poco más largo para verificar cómo se adapta la ventanita sin perder el estilo clásico de Macintosh.')">
+      <img src="https://i.imgur.com/Yh6x9M7.png" alt="Trash">
+      Trash
+    </a>
+  </div>
+
+  <!-- Ventana estilo Mac -->
+  <div class="dialog" id="macDialog">
+    <button class="close-btn" onclick="closeDialog()">x</button>
+    <div class="dialog-text">
+      <img src="https://i.imgur.com/Iwb5KoM.png" alt="Icon">
+      <span id="dialogText">Texto</span>
+    </div>
+  </div>
+
+  <script>
+    function showDialog(text) {
+      const dialog = document.getElementById('macDialog');
+      const textSpan = document.getElementById('dialogText');
+      textSpan.textContent = text;
+      dialog.classList.add('show');
+    }
+
+    function closeDialog() {
+      document.getElementById('macDialog').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
